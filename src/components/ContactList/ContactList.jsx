@@ -1,21 +1,39 @@
 import { FiTrash } from 'react-icons/fi';
+import { BsPersonCircle } from 'react-icons/bs';
+import {
+  Button,
+  Item,
+  LineWithShadow,
+  List,
+  Name,
+  Number,
+  Title,
+  TitlesWrapper,
+} from './ContactList.styled';
 
 export const ContactList = ({ newList, removeContact }) => {
   return (
-    <div>
-      <ul>
+    <>
+      <LineWithShadow />
+      <TitlesWrapper>
+        <Title>Name</Title>
+        <Title>Number</Title>
+      </TitlesWrapper>
+      <LineWithShadow />
+      <List>
         {newList.map(contact => {
           return (
-            <li key={contact.id}>
-              <p>{contact.name}</p>
-              <p>{contact.number}</p>
-              <button onClick={() => removeContact(contact.id)}>
+            <Item key={contact.id}>
+              <BsPersonCircle size={21} color="#fff" />
+              <Name>{contact.name}</Name>
+              <Number>{contact.number}</Number>
+              <Button onClick={() => removeContact(contact.id)}>
                 <FiTrash size={21} />
-              </button>
-            </li>
+              </Button>
+            </Item>
           );
         })}
-      </ul>
-    </div>
+      </List>
+    </>
   );
 };

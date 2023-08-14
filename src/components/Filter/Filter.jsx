@@ -1,8 +1,17 @@
+import { Input, Label } from './Filter.styled';
+
 export const Filter = ({ filter, findContact }) => {
   return (
-    <div>
-      <p>Find contact by name</p>
-      <input type="text" value={filter} onChange={findContact} />
-    </div>
+    <>
+      <Label>
+        Find contact by name{' '}
+        <Input
+          type="text"
+          value={filter}
+          onChange={findContact}
+          placeholder={'search'}
+        />
+      </Label>
+    </>
   );
 };

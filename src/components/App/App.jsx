@@ -1,11 +1,20 @@
 import React from 'react';
 import { Component } from 'react';
-import AddingForm from './AddingForm/AddingForm';
-import { nanoid } from 'nanoid';
-import { ContactList } from './ContactList/ContactList';
-import { Filter } from './Filter/Filter';
+import AddingForm from '../AddingForm/AddingForm';
+import { ContactList } from '../ContactList/ContactList';
+import { Filter } from '../Filter/Filter';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { RiContactsBookLine } from 'react-icons/ri';
+import {
+  ContactsSection,
+  Container,
+  SearchSection,
+  SubTitle,
+  Title,
+  TitleWrapper,
+  Wrapper,
+} from './App.styled';
 
 export class App extends Component {
   state = {
@@ -29,13 +38,15 @@ export class App extends Component {
       toast.error(`${oldContact.name} already exists`, {
         autoClose: 3000,
       });
-      return;
+    } else {
+      this.setState(prevState => ({
+        contacts: [...prevState.contacts, newContact],
+      }));
+      toast.success('Contact added successfully', {
+        position: 'top-right',
+        autoClose: 3000,
+      });
     }
-
-    const contact = { ...newContact, id: nanoid() };
-    this.setState(prevState => ({
-      contacts: [...prevState.contacts, contact],
-    }));
   };
 
   findContact = event => {
@@ -61,17 +72,25 @@ export class App extends Component {
     const newList = this.showNewList();
 
     return (
-      <div>
-        <h1>Phonebook</h1>
-        <AddingForm addContact={this.addContact}></AddingForm>
-        <h2>Contacts</h2>
-        <Filter filter={filter} findContact={this.findContact}></Filter>
-        <ContactList
-          newList={newList}
-          removeContact={this.removeContact}
-        ></ContactList>
-        <ToastContainer />
-      </div>
+      <Container>
+        <TitleWrapper>
+          <Title>Phonebook</Title> <RiContactsBookLine size={40} color="#fff" />
+        </TitleWrapper>
+        <Wrapper>
+          <SearchSection>
+            <Filter filter={filter} findContact={this.findContact}></Filter>
+            <AddingForm addContact={this.addContact}></AddingForm>
+          </SearchSection>
+          <ContactsSection>
+            <SubTitle>Contacts</SubTitle>
+            <ContactList
+              newList={newList}
+              removeContact={this.removeContact}
+            ></ContactList>
+            <ToastContainer />
+          </ContactsSection>
+        </Wrapper>
+      </Container>
     );
   }
 }
