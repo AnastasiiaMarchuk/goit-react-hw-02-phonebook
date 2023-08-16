@@ -45,10 +45,7 @@ export default function AddingForm({ addContact }) {
         </Label>
         <Label>
           Number
-          <Input
-            {...register('number', { required: true })}
-            placeholder="Enter number"
-          />
+          <Input {...register('number')} placeholder="xxx-xxx-xx-xx" />
           {errors.number && <Error>Number is required</Error>}
         </Label>
         <Button type="submit">Add contact</Button>

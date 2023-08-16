@@ -15,14 +15,15 @@ import {
   TitleWrapper,
   Wrapper,
 } from './App.styled';
+import { nanoid } from 'nanoid';
 
 export class App extends Component {
   state = {
     contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+      // { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+      // { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+      // { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+      // { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
     filter: '',
   };
@@ -38,15 +39,17 @@ export class App extends Component {
       toast.error(`${oldContact.name} already exists`, {
         autoClose: 3000,
       });
-    } else {
-      this.setState(prevState => ({
-        contacts: [...prevState.contacts, newContact],
-      }));
-      toast.success('Contact added successfully', {
-        position: 'top-right',
-        autoClose: 3000,
-      });
+      return;
     }
+
+    this.setState(prevState => ({
+      contacts: [...prevState.contacts, { ...newContact, id: nanoid() }],
+    }));
+
+    toast.success('Contact added successfully', {
+      position: 'top-right',
+      autoClose: 3000,
+    });
   };
 
   findContact = event => {
@@ -78,15 +81,16 @@ export class App extends Component {
         </TitleWrapper>
         <Wrapper>
           <SearchSection>
-            <Filter filter={filter} findContact={this.findContact}></Filter>
-            <AddingForm addContact={this.addContact}></AddingForm>
+            <Filter filter={filter} findContact={this.findContact} />/
+            <AddingForm addContact={this.addContact} />/
           </SearchSection>
           <ContactsSection>
             <SubTitle>Contacts</SubTitle>
             <ContactList
+              filter={filter}
               newList={newList}
               removeContact={this.removeContact}
-            ></ContactList>
+            />
             <ToastContainer />
           </ContactsSection>
         </Wrapper>

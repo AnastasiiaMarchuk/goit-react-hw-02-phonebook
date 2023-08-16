@@ -25,7 +25,7 @@ export const Wrapper = styled.div`
 `;
 
 export const SearchSection = styled.section`
-  width: 100%;
+  width: 600px;
   padding: 30px;
 `;
 

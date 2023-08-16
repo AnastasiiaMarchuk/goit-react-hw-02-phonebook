@@ -56,3 +56,10 @@ export const Button = styled.button`
   border: none;
   cursor: pointer;
 `;
+
+export const TextMessage = styled.p`
+  margin-top: 36px;
+  font-size: 18px;
+  color: #dbd7d2;
+  font-style: italic;
+`;
